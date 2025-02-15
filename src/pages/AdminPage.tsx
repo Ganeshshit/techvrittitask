@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 const AdminDashboard = () => {
   interface Student {
+    id: number;
     name: string;
     email: string;
     mobile: string;
@@ -10,36 +11,52 @@ const AdminDashboard = () => {
   }
 
   interface QuizResult {
+    id: number;
     studentName: string;
     score: number;
     totalQuestions: number;
   }
 
-  const [students, setStudents] = useState<Student[]>([]);
-  const [quizResults, setQuizResults] = useState<QuizResult[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [students, setStudents] = useState<Student[]>([
+    {
+      id: 1,
+      name: "John Doe",
+      email: "john@example.com",
+      mobile: "1234567890",
+      qualification: "BSc",
+    },
+    {
+      id: 2,
+      name: "Jane Smith",
+      email: "jane@example.com",
+      mobile: "0987654321",
+      qualification: "MSc",
+    },
+  ]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const studentResponse = await fetch("https://api.example.com/students");
-        const studentData = await studentResponse.json();
+  const [quizResults, setQuizResults] = useState<QuizResult[]>([
+    { id: 1, studentName: "John Doe", score: 8, totalQuestions: 10 },
+    { id: 2, studentName: "Jane Smith", score: 9, totalQuestions: 10 },
+  ]);
 
-        const quizResponse = await fetch(
-          "https://api.example.com/quiz-results"
-        );
-        const quizData = await quizResponse.json();
+  const [loading, setLoading] = useState(false);
+  const [editingStudent, setEditingStudent] = useState<Student | null>(null);
+  const [sortByScore, setSortByScore] = useState(false);
 
-        setStudents(studentData);
-        setQuizResults(quizData);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchData();
-  }, []);
+  const handleEdit = (student: Student) => {
+    setEditingStudent(student);
+  };
+
+  const handleSave = () => {
+    setStudents(
+      students.map((s) => (s.id === editingStudent?.id ? editingStudent : s))
+    );
+    setEditingStudent(null);
+  };
+
+  const handleSort = () => {
+    setSortByScore(!sortByScore);
+  };
 
   return (
     <motion.div
@@ -66,11 +83,12 @@ const AdminDashboard = () => {
                   <th className="border border-white p-2">Email</th>
                   <th className="border border-white p-2">Mobile</th>
                   <th className="border border-white p-2">Qualification</th>
+                  <th className="border border-white p-2">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {students.map((student, index) => (
-                  <tr key={index} className="bg-gray-100 text-black">
+                {students.map((student) => (
+                  <tr key={student.id} className="bg-gray-100 text-black">
                     <td className="border border-white p-2">{student.name}</td>
                     <td className="border border-white p-2">{student.email}</td>
                     <td className="border border-white p-2">
@@ -79,13 +97,48 @@ const AdminDashboard = () => {
                     <td className="border border-white p-2">
                       {student.qualification}
                     </td>
+                    <td className="border border-white p-2">
+                      <button
+                        onClick={() => handleEdit(student)}
+                        className="bg-yellow-500 px-2 py-1 rounded"
+                      >
+                        Edit
+                      </button>
+                    </td>
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
+
+          {editingStudent && (
+            <div className="mt-4 bg-white p-4 text-black rounded">
+              <h3 className="font-bold mb-2">Edit Student</h3>
+              <input
+                type="text"
+                value={editingStudent.name}
+                onChange={(e) =>
+                  setEditingStudent({ ...editingStudent, name: e.target.value })
+                }
+                className="border p-2 mb-2 w-full"
+              />
+              <button
+                onClick={handleSave}
+                className="bg-green-500 px-4 py-2 rounded"
+              >
+                Save
+              </button>
+            </div>
+          )}
+
           <div className="mt-6">
             <h3 className="text-xl font-bold mb-4">Quiz Results</h3>
+            <button
+              onClick={handleSort}
+              className="mb-2 bg-blue-500 px-4 py-2 rounded"
+            >
+              Sort by Score
+            </button>
             <table className="w-full border-collapse border border-white">
               <thead>
                 <tr className="bg-white text-black">
@@ -96,8 +149,11 @@ const AdminDashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {quizResults.map((result, index) => (
-                  <tr key={index} className="bg-gray-100 text-black">
+                {(sortByScore
+                  ? [...quizResults].sort((a, b) => b.score - a.score)
+                  : quizResults
+                ).map((result) => (
+                  <tr key={result.id} className="bg-gray-100 text-black">
                     <td className="border border-white p-2">
                       {result.studentName}
                     </td>
