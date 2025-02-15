@@ -1,4 +1,11 @@
 {
+  // "compilerOptions": {
+  //   "outDir": "./dist",
+  //   "rootDir": "./src",
+  //   "target": "ES6",
+  //   "module": "CommonJS",
+  //   "strict": true
+  // },
   "files": [],
   "references": [
     { "path": "./tsconfig.app.json" },
