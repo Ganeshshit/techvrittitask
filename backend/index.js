@@ -4,7 +4,6 @@ const dotenv = require("dotenv");
 const studentRoutes = require("./routes/studentRoutes");
 const quizRoutes = require("./routes/quizRoutes");
 const connectDB = require("./db/dbConnection");
-
 connectDB();
 dotenv.config();
 const app = express();

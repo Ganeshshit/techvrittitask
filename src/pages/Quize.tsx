@@ -9,7 +9,6 @@ type Question = {
 };
 
 type Answers = Record<number, string>;
-
 const QuizPage: React.FC = () => {
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);

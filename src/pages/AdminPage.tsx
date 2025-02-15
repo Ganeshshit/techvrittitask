@@ -38,7 +38,6 @@ const AdminDashboard = () => {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
@@ -85,7 +84,6 @@ const AdminDashboard = () => {
               </tbody>
             </table>
           </div>
-
           <div className="mt-6">
             <h3 className="text-xl font-bold mb-4">Quiz Results</h3>
             <table className="w-full border-collapse border border-white">
