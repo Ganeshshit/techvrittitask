@@ -60,7 +60,7 @@ const AdminDashboard = () => {
 
   return (
     <motion.div
-      className="max-w-5xl mx-auto p-6 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg shadow-lg mt-6 w-screen h-screen"
+      className="mx-auto my-auto p-6 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-lg shadow-lg mt-6 max-w-screen h-screen"
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
