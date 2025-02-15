@@ -9,7 +9,7 @@ const AdminLogin = () => {
 
   const handleLogin = () => {
     if (userId === "admin" && password === "password") {
-      navigate("/admindashboard");
+      navigate("/admin");
     } else {
       alert("Invalid credentials");
     }
