@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "vite",
     "build": "npx tsc",
-    
     "lint": "eslint .",
     "preview": "vite preview"
   },
@@ -15,7 +14,8 @@
     "framer-motion": "^12.4.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.1.5"
+    "react-router-dom": "^7.1.5",
+    "typescript": "^5.7.3"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
