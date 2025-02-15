@@ -71,8 +71,35 @@ const Form: React.FC = () => {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const formDataToSend = new FormData();
+    Object.entries(formData).forEach(([key, value]) => {
+      if (key === "resume" && value instanceof File) {
+        formDataToSend.append(key, value);
+      } else if (Array.isArray(value)) {
+        formDataToSend.append(key, JSON.stringify(value)); // Convert array to string
+      } else {
+        formDataToSend.append(key, value as string);
+      }
+    });
+    try {
+      const response = await fetch("/api/students", {
+        method: "POST",
+        body: formDataToSend,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to submit form");
+      }
+
+      console.log("Student Data Submitted Successfully!");
+      navigate("/quiz");
+    } catch (error) {
+      console.error("Error submitting student data:", error);
+    }
+
     console.log("Student Data Submitted:", formData);
     setTimeout(() => {
       navigate("/quiz");
