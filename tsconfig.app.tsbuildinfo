@@ -1,0 +1,1 @@
+{"root":["./src/app.tsx","./src/main.tsx","./src/vite-env.d.ts","./src/components/fileupload.tsx","./src/components/form.tsx","./src/components/inputfield.tsx","./src/components/skillsselector.tsx","./src/components/textarea.tsx","./src/pages/adminpage.tsx","./src/pages/quize.tsx","./src/pages/studentform.tsx"],"version":"5.7.3"}

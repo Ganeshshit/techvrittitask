@@ -5,10 +5,26 @@ import FileUpload from "./FileUpload";
 import TextArea from "./textArea";
 import { useNavigate } from "react-router-dom";
 
-const Form = () => {
+interface FormData {
+  fullName: string;
+  email: string;
+  mobile: string;
+  qualification: string;
+  graduationYear: string;
+  about: string;
+  certifications: string;
+  projects: string;
+  skills: string[];
+  software: string;
+  resume: File | null;
+  experience: string;
+  softSkills: string;
+}
+
+const Form: React.FC = () => {
   const navigate = useNavigate();
-  const [skillInput, setSkillInput] = useState("");
-  const [formData, setFormData] = useState({
+  const [skillInput, setSkillInput] = useState<string>("");
+  const [formData, setFormData] = useState<FormData>({
     fullName: "",
     email: "",
     mobile: "",
@@ -50,7 +66,7 @@ const Form = () => {
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
+    if (e.target.files && e.target.files.length > 0) {
       setFormData({ ...formData, resume: e.target.files[0] });
     }
   };
@@ -58,10 +74,8 @@ const Form = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Student Data Submitted:", formData);
-
-    // Simulating form submission delay
     setTimeout(() => {
-      navigate("/quiz"); // Redirect to Quiz Page
+      navigate("/quiz");
     }, 500);
   };
 

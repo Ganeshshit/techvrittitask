@@ -2,8 +2,21 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
 const AdminDashboard = () => {
-  const [students, setStudents] = useState([]);
-  const [quizResults, setQuizResults] = useState([]);
+  interface Student {
+    name: string;
+    email: string;
+    mobile: string;
+    qualification: string;
+  }
+
+  interface QuizResult {
+    studentName: string;
+    score: number;
+    totalQuestions: number;
+  }
+
+  const [students, setStudents] = useState<Student[]>([]);
+  const [quizResults, setQuizResults] = useState<QuizResult[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
