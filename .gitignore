@@ -2,6 +2,7 @@
 services/
 utils/
 backend/
+dist/
 logs
 *.log
 npm-debug.log*
