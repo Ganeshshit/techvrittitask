@@ -15,4 +15,4 @@ app.use("/api/students", studentRoutes);
 app.use("/api/quiz", quizRoutes); 
 
 const PORT = process.env.PORT;
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

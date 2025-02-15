@@ -2,7 +2,7 @@ const Quiz = require("../models/Quiz");
 const QuizResult = require("../models/QuizResult");
 
 
-// @route GET /api/quiz
+
 exports.getQuiz = async (req, res) => {
     try {
         const questions = await Quiz.aggregate([{ $sample: { size: 5 } }]); // Get 5 random questions
@@ -12,7 +12,7 @@ exports.getQuiz = async (req, res) => {
         res.status(500).json({ error: "Failed to fetch quiz questions" });
     }
 };
-// @route POST /api/quiz/submit
+
 exports.submitQuiz = async (req, res) => {
     try {
         const { studentId, responses } = req.body;
